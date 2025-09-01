@@ -63,7 +63,7 @@ class gerarDocumentacaoPorId {
         cy.xpath(eGerarDocumentacaoPorId.campos.resultado)
             .invoke('text')
             .then((texto) => {
-                cy.writeFile('cypress/downloads/saida.txt', texto)
+                cy.writeFile('cypress/downloads/texto.txt', texto)
             }
             )
     }
