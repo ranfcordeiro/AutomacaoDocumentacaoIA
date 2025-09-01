@@ -23,35 +23,50 @@ class gerarDocumentacaoPorId {
     pegaConteudo() {
         cy.wait(5000)
 
-        return cy.get(eGerarDocumentacaoPorId.campos.titulo)
-            .invoke('text')
-            .then(tituloObtido => {
-                
-                let titulo = tituloObtido
+        // return cy.get(eGerarDocumentacaoPorId.campos.titulo)
+        //     .invoke('text')
+        //     .then(tituloObtido => {
 
-                return cy.get(eGerarDocumentacaoPorId.campos.conteudo)
-                    .invoke('text')
-                    .then(conteudoObtido => {
-                        
-                        let conteudo = conteudoObtido
-                        return { titulo, conteudo };
-                    })
+        //         let titulo = tituloObtido
+
+        return cy.get(eGerarDocumentacaoPorId.campos.conteudo)
+            .invoke('text')
+            .then(conteudoObtido => {
+
+                let conteudo = conteudoObtido
+                    .replace(/\n/g, '')
+                    .replace(/\t/g, '')
+                    .replace(/-n-/g, '')
+                    .trim()
+                return { conteudo };
             })
+
     }
 
     executaTranscricao() {
 
-        this.pegaConteudo().then(({ titulo, conteudo }) => {
+        this.pegaConteudo().then(({ conteudo }) => {
 
             cy.visit(eGerarDocumentacaoPorId.url.urlIa)
             cy.wait(5000)
 
             cy.get(eGerarDocumentacaoPorId.campos.promptIa)
-                .type("Pegue requisito técnico informado a seguir e transforme em um manual de usuário final, amigável para leigos: "+titulo +" "+conteudo)
+                .type("Transforme o documento de requisito técnico informado a seguir em um manual de usuário final: " + conteudo)
             cy.get(eGerarDocumentacaoPorId.botoes.gerar)
-            .click()
+                .click()
         }
         )
     }
+
+    pegaResultado() {
+        cy.wait(10000)
+        cy.xpath(eGerarDocumentacaoPorId.campos.resultado)
+            .invoke('text')
+            .then((texto) => {
+                cy.writeFile('cypress/downloads/saida.txt', texto)
+            }
+            )
+    }
+
 }
 export default new gerarDocumentacaoPorId

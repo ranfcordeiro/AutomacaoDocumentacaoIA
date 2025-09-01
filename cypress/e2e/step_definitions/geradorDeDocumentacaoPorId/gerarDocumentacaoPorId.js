@@ -13,7 +13,7 @@ When("solicito a transcrição pela IA", () => {
     aGerarDocumentacaoPorId.executaTranscricao()
 })
 
-// Then("recebo o texto formatado para o usuário final", () => {
-//     aCart.validaProdutoEscolhido()
-// })
+ Then("recebo o texto para o usuário final", () => {
+     aGerarDocumentacaoPorId.pegaResultado()
+})
 

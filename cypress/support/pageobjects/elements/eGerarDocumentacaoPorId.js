@@ -18,6 +18,7 @@ export class eGerarDocumentacaoPorId {
         usuario: '#username-fake',
         senha: '#os_password',
         promptIa: '.ql-editor > p',
+        resultado: "//*[contains(@id, 'model-response-message-contentr')]",
 
     }
 
