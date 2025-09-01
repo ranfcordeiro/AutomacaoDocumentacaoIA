@@ -8,12 +8,11 @@ Given("que eu estou na página de documentação com de id {string}, usuário {s
     aGerarDocumentacaoPorId.autenticar(usuario, senha)
 })
 
-When("solicito a transcrição pela IA", () => {
+When("encontro o documento de requisito", () => {
     aGerarDocumentacaoPorId.pegaConteudo()
+})
+
+Then("executo a transcrição",()=>{
     aGerarDocumentacaoPorId.executaTranscricao()
+    //aGerarDocumentacaoPorId.executaTranscricaoPorApi()
 })
-
- Then("recebo o texto para o usuário final", () => {
-     aGerarDocumentacaoPorId.pegaResultado()
-})
-

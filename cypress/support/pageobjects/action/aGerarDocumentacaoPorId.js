@@ -2,9 +2,8 @@
 
 import { eGerarDocumentacaoPorId } from "../elements/eGerarDocumentacaoPorId"
 
-
-
 class gerarDocumentacaoPorId {
+
 
     acessarDocumento(idDocumento) {
         cy.visit(eGerarDocumentacaoPorId.url.urlDoc + idDocumento)
@@ -40,7 +39,33 @@ class gerarDocumentacaoPorId {
                     .trim()
                 return { conteudo };
             })
+    }
 
+    executaTranscricaoPorApi() {
+
+        this.pegaConteudo().then(({ conteudo }) => {
+
+            const API_KEY = 'AIzaSyDfuNF1vrf_AzaN8_IcV87VFdrR5_DbMR8';
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent`;
+            const headers = {
+                'Content-Type': 'application/json',
+                'X-goog-api-key': API_KEY,
+            };
+
+            const data = {
+                contents: [
+                    {
+                        parts: [
+                            {
+                                text: "Pegue este código " + conteudo + ", pegue o trecho entre as tags 'value:' e 'representation:' e transforme os dados obtido em texto amigável para usuário final"
+                            }
+                        ]
+                    }
+                ]
+            }
+
+            cy.writeFile('cypress/downloads/texto.txt', conteudo)
+        })
     }
 
     executaTranscricao() {
@@ -54,8 +79,8 @@ class gerarDocumentacaoPorId {
                 .type("Transforme o documento de requisito técnico informado a seguir em um manual de usuário final: " + conteudo)
             cy.get(eGerarDocumentacaoPorId.botoes.gerar)
                 .click()
-        }
-        )
+        })
+        this.pegaResultado()
     }
 
     pegaResultado() {
@@ -64,9 +89,7 @@ class gerarDocumentacaoPorId {
             .invoke('text')
             .then((texto) => {
                 cy.writeFile('cypress/downloads/texto.txt', texto)
-            }
-            )
+            })
     }
-
 }
 export default new gerarDocumentacaoPorId
