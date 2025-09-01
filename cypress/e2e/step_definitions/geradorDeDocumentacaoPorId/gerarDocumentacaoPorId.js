@@ -12,8 +12,8 @@ When("encontro o documento de requisito", () => {
     aGerarDocumentacaoPorId.pegaConteudo()
 })
 
-Then("executo a transcrição",()=>{
-    aGerarDocumentacaoPorId.executaTranscricaoPorApi()
-    aGerarDocumentacaoPorId.executaTranscricao()
+Then("executo a conversão",()=>{
+    aGerarDocumentacaoPorId.executoConversãoPorApi()
+    aGerarDocumentacaoPorId.executoConversão()
     
 })

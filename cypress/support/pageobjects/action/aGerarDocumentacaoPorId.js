@@ -41,7 +41,7 @@ class gerarDocumentacaoPorId {
             })
     }
 
-    executaTranscricaoPorApi() {
+    executoConversãoPorApi() {
 
         this.pegaConteudo().then(({ conteudo }) => {
 
@@ -68,7 +68,7 @@ class gerarDocumentacaoPorId {
         })
     }
 
-    executaTranscricao() {
+    executoConversão() {
 
         this.pegaConteudo().then(({ conteudo }) => {
 
