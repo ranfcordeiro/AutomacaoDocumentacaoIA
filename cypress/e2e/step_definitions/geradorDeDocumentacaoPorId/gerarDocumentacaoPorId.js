@@ -13,6 +13,7 @@ When("encontro o documento de requisito", () => {
 })
 
 Then("executo a transcrição",()=>{
+    aGerarDocumentacaoPorId.executaTranscricaoPorApi()
     aGerarDocumentacaoPorId.executaTranscricao()
-    //aGerarDocumentacaoPorId.executaTranscricaoPorApi()
+    
 })
